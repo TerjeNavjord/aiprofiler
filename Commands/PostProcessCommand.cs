@@ -207,6 +207,9 @@ namespace DotAi.Commands
                 // Try to create an instance: prefer (string,bool) ctor, then (string), then parameterless
                 try
                 {
+                    // Ensure we're examining the actual loaded assemblies in the current AppDomain
+                    // rather than relying on a potentially stale array passed by callers.
+                    assemblies = AppDomain.CurrentDomain.GetAssemblies();
                     ConstructorInfo? c = null;
                     c = symbolReaderType.GetConstructor(new[] { typeof(string), typeof(bool) }) ?? symbolReaderType.GetConstructor(new[] { typeof(string) }) ?? symbolReaderType.GetConstructor(Type.EmptyTypes);
                     if (c != null)
