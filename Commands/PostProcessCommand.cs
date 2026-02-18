@@ -1398,40 +1398,6 @@ namespace DotAi.Commands
                 // below (TryUseMicrosoftDiagnosticsSymbols and SimpleResolver reflection paths)
                 try { /* synthetic mapping removed */ } catch { }
 
-                // Try explicit Microsoft.Diagnostics.Symbols usage first (if available).
-                // Provide an addresses hint extracted from hotspot keys so symbol readers that
-                // accept raw addresses are exercised deterministically in tests.
-                try
-                {
-                    var hexAddrReHint = new System.Text.RegularExpressions.Regex(@"0x(?<h>[0-9a-fA-F]+)", System.Text.RegularExpressions.RegexOptions.Compiled);
-                    var addrs = new List<ulong>();
-                    foreach (var kv in hotspots)
-                    {
-                        try
-                        {
-                            var m = hexAddrReHint.Match(kv.Key);
-                            if (m.Success && ulong.TryParse(m.Groups["h"].Value, System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture, out var a)) addrs.Add(a);
-                        }
-                        catch { }
-                    }
-                    if (addrs.Count > 0)
-                    {
-                        if (TryUseMicrosoftDiagnosticsSymbols(hotspots, diagnostics, addrs))
-                        {
-                            diagnostics?.Add("Symbol resolution via Microsoft.Diagnostics.Symbols succeeded (address-hint path).");
-                            return;
-                        }
-                    }
-
-                    // Fallback to non-address hint path
-                    if (TryUseMicrosoftDiagnosticsSymbols(hotspots, diagnostics))
-                    {
-                        diagnostics?.Add("Symbol resolution via Microsoft.Diagnostics.Symbols succeeded.");
-                        return;
-                    }
-                }
-                catch (Exception ex) { diagnostics?.Add("Microsoft.Diagnostics.Symbols attempt threw: " + ex.Message); }
-
                 // Quick test-friendly fallback: look for a SymbolResolverStubs.SimpleResolver type
                 // early, so unit tests that include the test stub resolve addresses deterministically.
                 try
@@ -1489,6 +1455,40 @@ namespace DotAi.Commands
                     }
                 }
                 catch { }
+
+                // Try explicit Microsoft.Diagnostics.Symbols usage next (if available).
+                // Provide an addresses hint extracted from hotspot keys so symbol readers that
+                // accept raw addresses are exercised deterministically in tests.
+                try
+                {
+                    var hexAddrReHint = new System.Text.RegularExpressions.Regex(@"0x(?<h>[0-9a-fA-F]+)", System.Text.RegularExpressions.RegexOptions.Compiled);
+                    var addrs = new List<ulong>();
+                    foreach (var kv in hotspots)
+                    {
+                        try
+                        {
+                            var m = hexAddrReHint.Match(kv.Key);
+                            if (m.Success && ulong.TryParse(m.Groups["h"].Value, System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture, out var a)) addrs.Add(a);
+                        }
+                        catch { }
+                    }
+                    if (addrs.Count > 0)
+                    {
+                        if (TryUseMicrosoftDiagnosticsSymbols(hotspots, diagnostics, addrs))
+                        {
+                            diagnostics?.Add("Symbol resolution via Microsoft.Diagnostics.Symbols succeeded (address-hint path).");
+                            return;
+                        }
+                    }
+
+                    // Fallback to non-address hint path
+                    if (TryUseMicrosoftDiagnosticsSymbols(hotspots, diagnostics))
+                    {
+                        diagnostics?.Add("Symbol resolution via Microsoft.Diagnostics.Symbols succeeded.");
+                        return;
+                    }
+                }
+                catch (Exception ex) { diagnostics?.Add("Microsoft.Diagnostics.Symbols attempt threw: " + ex.Message); }
 
                 var resolvers = new List<(Type type, MethodInfo method, object? instance)>();
 
