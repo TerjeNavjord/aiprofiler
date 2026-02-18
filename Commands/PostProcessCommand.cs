@@ -1409,6 +1409,21 @@ namespace DotAi.Commands
                         {
                             var t = asm.GetType("SymbolResolverStubs.SimpleResolver");
                             if (t != null) { simpleResolverType = t; break; }
+                            // fallback: scan assembly types for a matching namespace/name if GetType fails
+                            Type[] types;
+                            try { types = asm.GetTypes(); } catch { types = Array.Empty<Type>(); }
+                            foreach (var tt in types)
+                            {
+                                try
+                                {
+                                    if (string.Equals(tt.Name, "SimpleResolver", StringComparison.OrdinalIgnoreCase) && (tt.Namespace ?? string.Empty).IndexOf("SymbolResolverStubs", StringComparison.OrdinalIgnoreCase) >= 0)
+                                    {
+                                        simpleResolverType = tt; break;
+                                    }
+                                }
+                                catch { }
+                            }
+                            if (simpleResolverType != null) break;
                         }
                         catch { }
                     }
@@ -1696,15 +1711,27 @@ namespace DotAi.Commands
 
                             // try to find a SimpleResolver type in loaded assemblies
                             Type? resolverType = null;
-                            foreach (var asm in assemblies)
-                            {
-                                try
-                                {
-                                    var t = asm.GetType("SymbolResolverStubs.SimpleResolver");
-                                    if (t != null) { resolverType = t; break; }
-                                }
-                                catch { }
-                            }
+                             foreach (var asm in assemblies)
+                             {
+                                 try
+                                 {
+                                     var t = asm.GetType("SymbolResolverStubs.SimpleResolver");
+                                     if (t != null) { resolverType = t; break; }
+                                     Type[] types2;
+                                     try { types2 = asm.GetTypes(); } catch { types2 = Array.Empty<Type>(); }
+                                     foreach (var tt in types2)
+                                     {
+                                         try
+                                         {
+                                             if (string.Equals(tt.Name, "SimpleResolver", StringComparison.OrdinalIgnoreCase) && (tt.Namespace ?? string.Empty).IndexOf("SymbolResolverStubs", StringComparison.OrdinalIgnoreCase) >= 0)
+                                             { resolverType = tt; break; }
+                                         }
+                                         catch { }
+                                     }
+                                     if (resolverType != null) break;
+                                 }
+                                 catch { }
+                             }
 
                             if (resolverType != null)
                             {
