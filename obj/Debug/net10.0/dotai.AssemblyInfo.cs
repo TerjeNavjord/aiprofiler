@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("dotai")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+990785cc20583106e87f2169d85306824ca39a67")]
 [assembly: System.Reflection.AssemblyProductAttribute("dotai")]
 [assembly: System.Reflection.AssemblyTitleAttribute("dotai")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

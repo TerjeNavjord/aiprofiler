@@ -258,8 +258,15 @@ namespace DotAi.Commands
                             if (outv != null)
                             {
                                 var name = outv.ToString() ?? addr.ToString("X");
-                                resolvedMap[$"0x{addr:X}"] = name;
-                                resolvedCount++;
+                                if (!IsNoopResolved(name, $"0x{addr:X}", addr, diagnostics))
+                                {
+                                    resolvedMap[$"0x{addr:X}"] = name;
+                                    resolvedCount++;
+                                }
+                                else
+                                {
+                                    try { diagnostics?.Add($"Microsoft.Diagnostics.Symbols returned no-op for 0x{addr:X}: '{name}'"); } catch { }
+                                }
                             }
                         }
                         catch { }
@@ -299,8 +306,10 @@ namespace DotAi.Commands
                     string? resolved = null;
 
                     var mhex = hexAddrRe.Match(key);
+                    ulong? parsedAddr = null;
                     if (mhex.Success && ulong.TryParse(mhex.Groups["h"].Value, System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture, out var addr))
                     {
+                        parsedAddr = addr;
                         try { var outv = resolveMethod.Invoke(symbolReaderInstance, new object[] { addr }); if (outv != null) resolved = outv.ToString(); } catch { }
                     }
 
@@ -318,7 +327,7 @@ namespace DotAi.Commands
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(resolved)) resolvedMap[key] = resolved;
+                    if (!string.IsNullOrEmpty(resolved) && !IsNoopResolved(resolved, key, parsedAddr, diagnostics)) resolvedMap[key] = resolved;
                 }
 
                 if (resolvedMap.Count > 0)
@@ -1384,92 +1393,404 @@ namespace DotAi.Commands
             return results;
         }
 
+        // Choose a Resolve-like method from a resolver type prioritizing single-integer-parameter overloads.
+        private static MethodInfo? PickPreferredResolveMethod(Type t, List<string>? diagnostics = null)
+        {
+            try
+            {
+                // Prefer single-param ulong, then long, then IntPtr, then string; then two-param (string, ulong/long/int)
+                var methods = t.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic);
+                MethodInfo? twoParam = null;
+                foreach (var m in methods)
+                {
+                    try
+                    {
+                        var ps = m.GetParameters();
+                        if (ps.Length == 1)
+                        {
+                            var p = ps[0].ParameterType;
+                            if (p == typeof(ulong) || p == typeof(System.UInt64)) return m;
+                        }
+                    }
+                    catch { }
+                }
+
+                foreach (var m in methods)
+                {
+                    try
+                    {
+                        var ps = m.GetParameters();
+                        if (ps.Length == 1)
+                        {
+                            var p = ps[0].ParameterType;
+                            if (p == typeof(long) || p == typeof(System.Int64)) return m;
+                            if (p == typeof(IntPtr)) return m;
+                            if (p == typeof(string)) twoParam = m; // record string single-param as lower priority
+                        }
+                        else if (ps.Length == 2 && ps[0].ParameterType == typeof(string) && (ps[1].ParameterType == typeof(ulong) || ps[1].ParameterType == typeof(long) || ps[1].ParameterType == typeof(int)))
+                        {
+                            // keep as fallback two-param
+                            if (twoParam == null) twoParam = m;
+                        }
+                    }
+                    catch { }
+                }
+
+                if (twoParam != null) return twoParam;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                try { diagnostics?.Add("PickPreferredResolveMethod exception: " + ex.Message); } catch { }
+                return null;
+            }
+        }
+
+        // Invoke a Resolve-like MethodInfo with an address (ulong) or module+offset, handling parameter conversions.
+        private static string? InvokeResolverMethod(MethodInfo method, object? instance, ulong addr, string? module, List<string>? diagnostics = null)
+        {
+            try
+            {
+                var ps = method.GetParameters();
+                if (ps.Length == 1)
+                {
+                    var pt = ps[0].ParameterType;
+                    object arg;
+                    if (pt == typeof(ulong)) arg = addr;
+                    else if (pt == typeof(long)) arg = (long)addr;
+                    else if (pt == typeof(IntPtr)) arg = new IntPtr((long)addr);
+                    else if (pt == typeof(string)) arg = module ?? addr.ToString("X");
+                    else arg = Convert.ChangeType(addr, pt);
+
+                    try
+                    {
+                        var outv = method.Invoke(instance, new object[] { arg });
+                        var s = outv?.ToString();
+                        try { diagnostics?.Add($"Invoked resolver {method.DeclaringType?.FullName}.{method.Name} with arg {arg} -> {s}"); } catch { }
+                        return s;
+                    }
+                    catch (Exception ex)
+                    {
+                        try { diagnostics?.Add($"Resolver invocation failed ({method.DeclaringType?.FullName}.{method.Name}): {ex.Message}"); } catch { }
+                        return null;
+                    }
+                }
+                else if (ps.Length == 2 && ps[0].ParameterType == typeof(string))
+                {
+                    var pt = ps[1].ParameterType;
+                    object arg2 = pt == typeof(int) ? (object)(int)addr : (pt == typeof(long) ? (object)(long)addr : (object)addr);
+                    try
+                    {
+                        var outv = method.Invoke(instance, new object[] { module ?? string.Empty, arg2 });
+                        var s = outv?.ToString();
+                        try { diagnostics?.Add($"Invoked resolver {method.DeclaringType?.FullName}.{method.Name} with args ('{module ?? string.Empty}', {arg2}) -> {s}"); } catch { }
+                        return s;
+                    }
+                    catch (Exception ex)
+                    {
+                        try { diagnostics?.Add($"Resolver invocation failed ({method.DeclaringType?.FullName}.{method.Name}): {ex.Message}"); } catch { }
+                        return null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                try { diagnostics?.Add("InvokeResolverMethod exception: " + ex.Message); } catch { }
+            }
+            return null;
+        }
+
+        // Return true if a resolved string should be treated as a no-op (i.e. echo of the input)
+        private static bool IsNoopResolved(string? resolved, string originalKey, ulong? addr = null, List<string>? diagnostics = null)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(resolved)) return true;
+                var r = resolved.Trim();
+                if (string.Equals(r, originalKey, StringComparison.OrdinalIgnoreCase))
+                {
+                    diagnostics?.Add($"Ignoring no-op resolver result: '{resolved}' == '{originalKey}'");
+                    return true;
+                }
+                if (addr.HasValue)
+                {
+                    var hex = $"0x{addr.Value:X}";
+                    if (string.Equals(r, hex, StringComparison.OrdinalIgnoreCase))
+                    {
+                        diagnostics?.Add($"Ignoring no-op resolver result: '{resolved}' == '{hex}'");
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                try { diagnostics?.Add("IsNoopResolved exception: " + ex.Message); } catch { }
+                return false;
+            }
+        }
+
         // Best-effort: try to resolve simple symbol cases for hotspot keys using Microsoft.Diagnostics.Symbols or TraceEvent helpers
         private static void TryResolveSymbolsOnHotspots(Dictionary<string, long> hotspots, Assembly[] assemblies, List<string>? diagnostics = null)
         {
             try
             {
+                // Use the current AppDomain's loaded assemblies to ensure test-time stubs are visible
+                try { assemblies = AppDomain.CurrentDomain.GetAssemblies(); } catch { }
                 if (hotspots == null || hotspots.Count == 0) return;
 
                 diagnostics?.Add($"Attempting symbol resolution for {hotspots.Count} hotspots");
+                try { Console.WriteLine($"DEBUG: Entering TryResolveSymbolsOnHotspots with {hotspots.Count} hotspots"); } catch { }
+                try
+                {
+                    var asmNames = assemblies != null ? string.Join(", ", assemblies.Select(a => a.GetName().Name)) : "(none)";
+                    diagnostics?.Add($"Loaded assemblies: {asmNames}");
+                    try { Console.WriteLine("DEBUG: Loaded assemblies: " + asmNames); } catch { }
+                    try
+                    {
+                        foreach (var a in assemblies)
+                        {
+                            try
+                            {
+                                var hasSimple = false;
+                                try { hasSimple = a.GetTypes().Any(t => (t.Namespace ?? string.Empty).IndexOf("SymbolResolverStubs", StringComparison.OrdinalIgnoreCase) >= 0 || t.Name.IndexOf("SimpleResolver", StringComparison.OrdinalIgnoreCase) >= 0); } catch { }
+                                diagnostics?.Add($"Assembly '{a.GetName().Name}' contains SimpleResolver? {hasSimple}");
+                                try { Console.WriteLine($"DEBUG: Assembly '{a.GetName().Name}' contains SimpleResolver? {hasSimple}"); } catch { }
+                            }
+                            catch { }
+                        }
+                    }
+                    catch { }
+
+                    // Extra: write an immediate assembly/type probe snapshot to the temp file so we can
+                    // diagnose why SimpleResolver may not be discovered in testhost environments.
+                    try
+                    {
+                        var temp2 = Path.Combine(Path.GetTempPath(), "aiprofiler-symbols-assembly-probe.txt");
+                        using (var sw = File.AppendText(temp2))
+                        {
+                            sw.WriteLine("--- Assembly probe: " + DateTime.UtcNow.ToString("o"));
+                            foreach (var asm in assemblies)
+                            {
+                                try
+                                {
+                                    Type? t = null;
+                                    try { t = asm.GetType("SymbolResolverStubs.SimpleResolver"); } catch { t = null; }
+                                    int count = 0;
+                                    try { count = asm.GetTypes().Length; } catch { count = -1; }
+                                    sw.WriteLine($"Assembly={asm.GetName().Name}, SimpleResolverByFullName={(t!=null)}, TypeCount={count}");
+                                }
+                                catch (Exception ex) { sw.WriteLine($"Probe failed for assembly {asm.GetName().Name}: {ex.Message}"); }
+                            }
+                            sw.WriteLine();
+                        }
+                    }
+                    catch { }
+                }
+                catch { }
+                // Persist diagnostics snapshot to temp file to aid CI-less debugging
+                try
+                {
+                    var temp = Path.Combine(Path.GetTempPath(), "aiprofiler-symbols-log.txt");
+                    using (var sw = File.AppendText(temp))
+                    {
+                        sw.WriteLine("--- TryResolveSymbolsOnHotspots run: " + DateTime.UtcNow.ToString("o"));
+                        if (diagnostics != null)
+                        {
+                            foreach (var d in diagnostics) sw.WriteLine(d);
+                        }
+                        sw.WriteLine();
+                    }
+                }
+                catch (Exception ex) { try { diagnostics?.Add("Failed to write symbols log: " + ex.ToString()); } catch { } }
 
                 // Removed synthetic mapping shortcut that produced fake "StubModule!Function+0x..." entries
                 // when test stubs were detected. Prefer explicit resolver discovery and invocation
                 // below (TryUseMicrosoftDiagnosticsSymbols and SimpleResolver reflection paths)
                 try { /* synthetic mapping removed */ } catch { }
 
-                // Quick test-friendly fallback: look for a SymbolResolverStubs.SimpleResolver type
-                // early, so unit tests that include the test stub resolve addresses deterministically.
+                // Quick test-friendly fallback: prefer any SimpleResolver test stub when present
                 try
                 {
-                    var simpleResolverType = (Type?)null;
+                    Type? simpleResolverType = null;
+                    // Search all loaded assemblies for a type named SimpleResolver (prefer SymbolResolverStubs namespace)
                     foreach (var asm in assemblies)
                     {
                         try
                         {
-                            var t = asm.GetType("SymbolResolverStubs.SimpleResolver");
-                            if (t != null) { simpleResolverType = t; break; }
-                            // fallback: scan assembly types for a matching namespace/name if GetType fails
                             Type[] types;
                             try { types = asm.GetTypes(); } catch { types = Array.Empty<Type>(); }
+                            // Report counts to help debug why the type might not be found in CI/testhost
+                            try { diagnostics?.Add($"Scanning assembly {asm.GetName().Name} for SimpleResolver: types={types.Length}"); } catch { }
+                            // Prefer the fully-qualified test stub type when present
+                            var fullMatches = types.Where(tt => string.Equals(tt.FullName, "SymbolResolverStubs.SimpleResolver", StringComparison.OrdinalIgnoreCase)).ToArray();
+                            if (fullMatches.Length > 0)
+                            {
+                                simpleResolverType = fullMatches[0];
+                                diagnostics?.Add($"Found test SimpleResolver type: {simpleResolverType.FullName} in assembly {asm.GetName().Name} (full name match)");
+                                break;
+                            }
                             foreach (var tt in types)
                             {
                                 try
                                 {
-                                    if (string.Equals(tt.Name, "SimpleResolver", StringComparison.OrdinalIgnoreCase) && (tt.Namespace ?? string.Empty).IndexOf("SymbolResolverStubs", StringComparison.OrdinalIgnoreCase) >= 0)
+                                    if (string.Equals(tt.Name, "SimpleResolver", StringComparison.OrdinalIgnoreCase))
                                     {
-                                        simpleResolverType = tt; break;
+                                        simpleResolverType = tt;
+                                        diagnostics?.Add($"Found test SimpleResolver type by name: {tt.FullName} in assembly {asm.GetName().Name}");
+                                        break;
                                     }
                                 }
                                 catch { }
                             }
                             if (simpleResolverType != null) break;
                         }
-                        catch { }
+                        catch (Exception ex) { diagnostics?.Add($"Exception scanning assembly {asm.GetName().Name} for SimpleResolver: {ex.Message}"); }
+                    }
+
+                    // If not found by full name, try any type named SimpleResolver
+                    if (simpleResolverType == null)
+                    {
+                        foreach (var asm in assemblies)
+                        {
+                            try
+                            {
+                                Type[] types;
+                                try { types = asm.GetTypes(); } catch { types = Array.Empty<Type>(); }
+                                foreach (var tt in types)
+                                {
+                                    try
+                                    {
+                                        if (string.Equals(tt.Name, "SimpleResolver", StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            simpleResolverType = tt;
+                                            diagnostics?.Add($"Found test SimpleResolver type by name: {tt.FullName} in assembly {asm.GetName().Name}");
+                                            break;
+                                        }
+                                    }
+                                    catch { }
+                                }
+                                if (simpleResolverType != null) break;
+                            }
+                            catch { }
+                        }
                     }
 
                     if (simpleResolverType != null)
                     {
-                        diagnostics?.Add($"Found test SimpleResolver type: {simpleResolverType.FullName}");
-                        var ctor = simpleResolverType.GetConstructor(Type.EmptyTypes);
-                        var inst = ctor != null ? ctor.Invoke(Array.Empty<object>()) : null;
-                        var m = simpleResolverType.GetMethod("Resolve", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
-                        if (m != null)
+                        diagnostics?.Add("Using SimpleResolver exclusively (test stub present) -> skipping general resolvers");
+                        // instantiate
+                        object? inst = null;
+                        try
                         {
-                            var resolvedMapLocal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                            var hexAddrReLocal = new System.Text.RegularExpressions.Regex(@"0x(?<h>[0-9a-fA-F]+)", System.Text.RegularExpressions.RegexOptions.Compiled);
-                            foreach (var kv in hotspots.ToArray())
-                            {
-                                try
-                                {
-                                    var key = kv.Key;
-                                    var mhex = hexAddrReLocal.Match(key);
-                                    if (!mhex.Success) continue;
-                                    if (!ulong.TryParse(mhex.Groups["h"].Value, System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture, out var addr)) continue;
-                                    object? outv = null;
-                                    try { outv = m.Invoke(inst, new object[] { addr }); } catch { outv = null; }
-                                    if (outv != null) resolvedMapLocal[key] = outv.ToString() ?? ($"0x{addr:X}");
-                                }
-                                catch { }
-                            }
+                            var ctor = simpleResolverType.GetConstructor(Type.EmptyTypes);
+                            inst = ctor != null ? ctor.Invoke(Array.Empty<object>()) : null;
+                            diagnostics?.Add(ctor != null ? "Instantiated SimpleResolver via parameterless ctor." : "No parameterless ctor for SimpleResolver; will attempt to call static methods if available.");
+                        }
+                        catch (Exception ex) { diagnostics?.Add("SimpleResolver ctor invocation failed: " + ex.ToString()); }
 
-                            if (resolvedMapLocal.Count > 0)
+                        // collect Resolve methods
+                        MethodInfo[] allResolveMethods = Array.Empty<MethodInfo>();
+                        try
+                        {
+                            allResolveMethods = simpleResolverType.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic).Where(mm => string.Equals(mm.Name, "Resolve", StringComparison.OrdinalIgnoreCase)).ToArray();
+                            diagnostics?.Add($"SimpleResolver: found {allResolveMethods.Length} Resolve method(s)");
+                            foreach (var m in allResolveMethods) diagnostics?.Add($"  Resolve overload: {m.DeclaringType?.FullName}.{m.Name}({string.Join(",", m.GetParameters().Select(p => p.ParameterType.Name))})");
+                        }
+                        catch (Exception ex) { diagnostics?.Add("Enumerating SimpleResolver.Resolve overloads failed: " + ex.Message); }
+                        if (allResolveMethods.Length == 0)
+                        {
+                            diagnostics?.Add("SimpleResolver type found but contains no Resolve methods.");
+                        }
+
+                        // pick preferred method and order
+                        MethodInfo? preferredOverall = null;
+                        try { preferredOverall = PickPreferredResolveMethod(simpleResolverType, diagnostics); if (preferredOverall != null) diagnostics?.Add($"SimpleResolver selected method: {preferredOverall.DeclaringType?.FullName}.{preferredOverall.Name}({string.Join(",", preferredOverall.GetParameters().Select(p => p.ParameterType.Name))})"); } catch { }
+                        var orderedMethods = new List<MethodInfo>();
+                        if (preferredOverall != null) orderedMethods.Add(preferredOverall);
+                        foreach (var mm in allResolveMethods)
+                        {
+                            if (preferredOverall != null && mm.MetadataToken == preferredOverall.MetadataToken && mm.DeclaringType == preferredOverall.DeclaringType) continue;
+                            orderedMethods.Add(mm);
+                        }
+
+                        var resolvedMapLocal = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        var hexAddrReLocal = new System.Text.RegularExpressions.Regex(@"0x(?<h>[0-9a-fA-F]+)", System.Text.RegularExpressions.RegexOptions.Compiled);
+
+                        // Attempt resolution for each hotspot
+                        foreach (var kv in hotspots.ToArray())
+                        {
+                            try
                             {
-                                var newHotspots = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
-                                foreach (var kv in hotspots)
+                                var key = kv.Key;
+                                var mhex = hexAddrReLocal.Match(key);
+                                if (!mhex.Success) continue;
+                                if (!ulong.TryParse(mhex.Groups["h"].Value, System.Globalization.NumberStyles.HexNumber, System.Globalization.CultureInfo.InvariantCulture, out var addr)) continue;
+
+                                string? accepted = null;
+                                foreach (var tryMethod in orderedMethods)
                                 {
-                                    if (resolvedMapLocal.TryGetValue(kv.Key, out var r)) { newHotspots.TryGetValue(r, out var v); newHotspots[r] = v + kv.Value; }
-                                    else { newHotspots.TryGetValue(kv.Key, out var v); newHotspots[kv.Key] = v + kv.Value; }
+                                    try
+                                    {
+                                        diagnostics?.Add($"Attempting SimpleResolver.{tryMethod.Name}({string.Join(',', tryMethod.GetParameters().Select(p => p.ParameterType.Name))}) against {key}");
+                                        // Log detailed MethodInfo before invoking
+                                        try { diagnostics?.Add($"  MethodInfo: DeclaringType={tryMethod.DeclaringType?.FullName}, MetadataToken={tryMethod.MetadataToken}"); } catch { }
+                                        var res = InvokeResolverMethod(tryMethod, inst, addr, null, diagnostics);
+                                        diagnostics?.Add($"SimpleResolver.{tryMethod.Name} returned: '{res ?? "(null)"}'");
+                                        if (!string.IsNullOrEmpty(res) && !IsNoopResolved(res, key, addr, diagnostics))
+                                        {
+                                            accepted = res;
+                                            diagnostics?.Add($"Accepted SimpleResolver mapping for {key} -> {accepted}");
+                                            // Record the exact invocation details to aid CI debugging
+                                            try { diagnostics?.Add($"  Accepted details: Method={tryMethod.DeclaringType?.FullName}.{tryMethod.Name}, Args=[{addr}], Returned='{accepted}'"); } catch { }
+                                            break;
+                                        }
+                                    }
+                                    catch (Exception ex) { diagnostics?.Add($"SimpleResolver.{tryMethod.Name} invocation threw: {ex.ToString()}"); }
                                 }
-                                hotspots.Clear();
-                                foreach (var kv in newHotspots) hotspots[kv.Key] = kv.Value;
-                                diagnostics?.Add($"Symbol resolution produced {resolvedMapLocal.Count} mappings via SimpleResolver early-fallback and updated hotspots.");
-                                return;
+
+                                if (!string.IsNullOrEmpty(accepted)) resolvedMapLocal[key] = accepted!;
+                            }
+                            catch (Exception ex) { diagnostics?.Add("SimpleResolver per-hotspot attempt failed: " + ex.ToString()); }
+                        }
+
+                        if (resolvedMapLocal.Count > 0)
+                        {
+                            var newHotspots = new Dictionary<string, long>(StringComparer.OrdinalIgnoreCase);
+                            foreach (var kv in hotspots)
+                            {
+                                if (resolvedMapLocal.TryGetValue(kv.Key, out var r)) { newHotspots.TryGetValue(r, out var v); newHotspots[r] = v + kv.Value; }
+                                else { newHotspots.TryGetValue(kv.Key, out var v); newHotspots[kv.Key] = v + kv.Value; }
+                            }
+                            hotspots.Clear();
+                            foreach (var kv in newHotspots) hotspots[kv.Key] = kv.Value;
+                            diagnostics?.Add($"Symbol resolution produced {resolvedMapLocal.Count} mappings via SimpleResolver early-fallback and updated hotspots.");
+                        }
+
+                        // Persist final diagnostics snapshot so CI/local runs can inspect final decision
+                        try
+                        {
+                            var temp = Path.Combine(Path.GetTempPath(), "aiprofiler-symbols-log.txt");
+                            using (var sw = File.AppendText(temp))
+                            {
+                                sw.WriteLine("--- TryResolveSymbolsOnHotspots final snapshot: " + DateTime.UtcNow.ToString("o"));
+                                if (diagnostics != null)
+                                {
+                                    foreach (var d in diagnostics) sw.WriteLine(d);
+                                }
+                                sw.WriteLine();
                             }
                         }
+                        catch (Exception ex) { try { diagnostics?.Add("Failed to write final symbols log: " + ex.ToString()); } catch { } }
+
+                        diagnostics?.Add("SimpleResolver present - skipping general resolver scanning.");
+                        return;
                     }
                 }
-                catch { }
+                catch (Exception ex)
+                {
+                    diagnostics?.Add("SimpleResolver discovery/invocation exception: " + ex.ToString());
+                }
 
                 // Try explicit Microsoft.Diagnostics.Symbols usage next (if available).
                 // Provide an addresses hint extracted from hotspot keys so symbol readers that
@@ -1560,6 +1881,7 @@ namespace DotAi.Commands
                     diagnostics?.Add("No symbol resolver candidates found in loaded assemblies.");
                     return;
                 }
+                try { diagnostics?.Add($"Resolver candidates discovered: {resolvers.Count}"); } catch { }
 
                 // Patterns to extract addresses and module+offsets from hotspot keys
                 var hexAddrRe = new System.Text.RegularExpressions.Regex(@"0x(?<h>[0-9a-fA-F]+)", System.Text.RegularExpressions.RegexOptions.Compiled);
@@ -1583,12 +1905,21 @@ namespace DotAi.Commands
                             {
                                 object? outv = null;
                                 try { outv = r.method.Invoke(r.instance, new object[] { key }); } catch { outv = null; }
-                                if (outv != null)
+                            if (outv != null)
+                            {
+                                var cand = outv.ToString();
+                                diagnostics?.Add($"Candidate resolver {r.type.FullName}.{r.method.Name} returned: {cand}");
+                                if (!IsNoopResolved(cand, key, null, diagnostics))
                                 {
-                                    resolved = outv.ToString();
-                                    diagnostics?.Add($"Resolved '{key}' via {r.type.FullName}.{r.method.Name} -> {resolved}");
+                                    resolved = cand;
+                                    diagnostics?.Add($"Accepted resolver {r.type.FullName}.{r.method.Name} -> {resolved}");
                                     break;
                                 }
+                                else
+                                {
+                                    diagnostics?.Add($"Ignored no-op candidate {r.type.FullName}.{r.method.Name} for '{key}'");
+                                }
+                            }
                             }
                         }
                         catch { }
@@ -1614,9 +1945,18 @@ namespace DotAi.Commands
                                             try { outv = r.method.Invoke(r.instance, new object[] { arg }); } catch { outv = null; }
                                             if (outv != null)
                                             {
-                                                resolved = outv.ToString();
-                                                diagnostics?.Add($"Resolved '{key}' by address via {r.type.FullName}.{r.method.Name} -> {resolved}");
-                                                break;
+                                                var cand = outv.ToString();
+                                                diagnostics?.Add($"Candidate resolver {r.type.FullName}.{r.method.Name} by addr returned: {cand}");
+                                                if (!IsNoopResolved(cand, key, addr, diagnostics))
+                                                {
+                                                    resolved = cand;
+                                                    diagnostics?.Add($"Accepted resolver {r.type.FullName}.{r.method.Name} -> {resolved}");
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    diagnostics?.Add($"Ignored no-op candidate {r.type.FullName}.{r.method.Name} for '{key}' by addr");
+                                                }
                                             }
                                         }
                                         else if (ps.Length == 2 && ps[0].ParameterType == typeof(string) && (ps[1].ParameterType == typeof(ulong) || ps[1].ParameterType == typeof(long) || ps[1].ParameterType == typeof(int)))
@@ -1628,9 +1968,18 @@ namespace DotAi.Commands
                                             try { outv = r.method.Invoke(r.instance, new object[] { arg1, arg2 }); } catch { outv = null; }
                                             if (outv != null)
                                             {
-                                                resolved = outv.ToString();
-                                                diagnostics?.Add($"Resolved '{key}' by address via {r.type.FullName}.{r.method.Name} -> {resolved}");
-                                                break;
+                                                var cand = outv.ToString();
+                                                diagnostics?.Add($"Candidate resolver {r.type.FullName}.{r.method.Name} by module+off returned: {cand}");
+                                                if (!IsNoopResolved(cand, key, addr, diagnostics))
+                                                {
+                                                    resolved = cand;
+                                                    diagnostics?.Add($"Accepted resolver {r.type.FullName}.{r.method.Name} -> {resolved}");
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    diagnostics?.Add($"Ignored no-op candidate {r.type.FullName}.{r.method.Name} for '{key}' by module+offset");
+                                                }
                                             }
                                         }
                                     }
@@ -1674,7 +2023,11 @@ namespace DotAi.Commands
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(resolved)) resolvedMap[key] = resolved;
+                    if (!string.IsNullOrEmpty(resolved))
+                    {
+                        if (!IsNoopResolved(resolved, key, null, diagnostics)) resolvedMap[key] = resolved;
+                        else diagnostics?.Add($"Ignored no-op general resolver result for {key}: '{resolved}'");
+                    }
                 }
 
                 if (resolvedMap.Count > 0)
@@ -1719,15 +2072,15 @@ namespace DotAi.Commands
                                      if (t != null) { resolverType = t; break; }
                                      Type[] types2;
                                      try { types2 = asm.GetTypes(); } catch { types2 = Array.Empty<Type>(); }
-                                     foreach (var tt in types2)
-                                     {
-                                         try
-                                         {
-                                             if (string.Equals(tt.Name, "SimpleResolver", StringComparison.OrdinalIgnoreCase) && (tt.Namespace ?? string.Empty).IndexOf("SymbolResolverStubs", StringComparison.OrdinalIgnoreCase) >= 0)
-                                             { resolverType = tt; break; }
-                                         }
-                                         catch { }
-                                     }
+                                      foreach (var tt in types2)
+                                      {
+                                          try
+                                          {
+                                              if (string.Equals(tt.Name, "SimpleResolver", StringComparison.OrdinalIgnoreCase))
+                                              { resolverType = tt; break; }
+                                          }
+                                          catch { }
+                                      }
                                      if (resolverType != null) break;
                                  }
                                  catch { }
@@ -1738,7 +2091,7 @@ namespace DotAi.Commands
                                 try
                                 {
                                     var ctor = resolverType.GetConstructor(Type.EmptyTypes);
-                                    var inst = ctor != null ? ctor.Invoke(null) : null;
+                                    var inst = ctor != null ? ctor.Invoke(Array.Empty<object>()) : null;
                                     var m = resolverType.GetMethod("Resolve", BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static);
                                     if (m != null)
                                     {
@@ -1824,6 +2177,24 @@ namespace DotAi.Commands
                 catch { }
             }
             catch (Exception ex) { try { diagnostics?.Add("TryResolveSymbolsOnHotspots exception: " + ex.Message); } catch { } }
+            finally
+            {
+                // Always persist a final diagnostics snapshot to temp so CI/local runs can inspect what happened
+                try
+                {
+                    var temp = Path.Combine(Path.GetTempPath(), "aiprofiler-symbols-log.txt");
+                    using (var sw = File.AppendText(temp))
+                    {
+                        sw.WriteLine("--- TryResolveSymbolsOnHotspots final snapshot (always written): " + DateTime.UtcNow.ToString("o"));
+                        if (diagnostics != null)
+                        {
+                            foreach (var d in diagnostics) sw.WriteLine(d);
+                        }
+                        sw.WriteLine();
+                    }
+                }
+                catch { }
+            }
         }
 
         // Version-aware handling for known TraceEvent/TraceLog shapes (2.x and 3.x). Returns true if processing produced artifacts.
