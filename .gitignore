@@ -1,0 +1,21 @@
+# Build outputs
+/bin/
+/obj/
+
+# Test results
+**/TestResults/
+*.trx
+
+# Visual Studio / Rider / VSCode files
+*.user
+*.suo
+*.vscode/
+
+# NuGet / package caches
+*.nupkg
+project.lock.json
+packages/
+
+# Temporary files
+*.tmp
+tools/
