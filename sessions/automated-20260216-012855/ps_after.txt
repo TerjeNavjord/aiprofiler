@@ -1,0 +1,8 @@
+﻿C:\Users\User\source\repos\aiprofiler\dotai.csproj : warning NU1603: dotai depends on Microsoft.Diagnostics.Tracing.TraceEvent (>= 2.0.120) but Microsoft.Diagnostics.Tracing.TraceEvent 2.0.120 was not found. Microsoft.Diagnostics.Tracing.TraceEvent 3.0.0 was resolved instead.
+C:\Users\User\source\repos\aiprofiler\dotai.csproj : warning NU1603: dotai depends on Microsoft.Diagnostics.Tracing.TraceEvent (>= 2.0.120) but Microsoft.Diagnostics.Tracing.TraceEvent 2.0.120 was not found. Microsoft.Diagnostics.Tracing.TraceEvent 3.0.0 was resolved instead.
+PID	ProcessName
+15580	Raycast
+27164	csharp-ls
+57308	VBCSCompiler
+87768	dotnet
+49872	dotai

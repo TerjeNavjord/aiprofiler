@@ -1,0 +1,13 @@
+﻿PID	ProcessName
+15580	Raycast
+27164	csharp-ls
+1396	DevHub
+28580	ServiceHub.Host.Extensibility.x64
+75916	csharp-ls
+163516	dotnet
+191700	ternav-api
+77400	VBCSCompiler
+150272	dotnet
+74600	dotnet
+40608	dotai
+

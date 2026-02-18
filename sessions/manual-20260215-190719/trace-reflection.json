@@ -1,0 +1,379 @@
+{
+  "candidateTypes": [
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventInstanceData",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeSessionInfo",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeProviderConfiguration",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeSerializationFormat",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeInternal",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeInternal+EventPipeProviderConfigurationNative",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventDispatcher",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventDispatcher+EventListenerSubscription",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventDispatcher+<>c__DisplayClass15_0",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventProvider",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeMetadataGenerator",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipePayloadDecoder",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventSource",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeBlock",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventBlock",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeMetadataBlock",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeSequencePointBlock",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeStackBlock",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeMetaDataVersion",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeMetadataTag",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventMetaDataHeader",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventHeader",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.ParseBufferItemFunction",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.EventCache",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.EventCacheThread",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.EventMarker",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.PinnedBuffer",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.EventPipeTraceEventParser",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.SampleProfilerTraceEventParser",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.ClrThreadSampleType",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.ClrThreadSampleTraceData",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.ClrThreadStackWalkTraceData",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.StackCache",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventSource+<>c__DisplayClass2_0",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventHeader+LayoutV3",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventHeader+LayoutV4",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventHeader+CompressedHeaderFlags",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.EventCache+<>c",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipe.StackCache+StackMarker",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventHeader+LayoutV3+<Payload>e__FixedBuffer",
+    "Microsoft.Diagnostics.Tracing.TraceEvent:Microsoft.Diagnostics.Tracing.EventPipeEventHeader+LayoutV4+<Payload>e__FixedBuffer"
+  ],
+  "detailedCandidates": [
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeEventInstanceData",
+      "ctors": [],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeSessionInfo",
+      "ctors": [],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeProviderConfiguration",
+      "ctors": [
+        {
+          "parameters": [
+            "System.String",
+            "System.UInt64",
+            "System.UInt32",
+            "System.String"
+          ],
+          "isPublic": false
+        }
+      ],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeSerializationFormat",
+      "ctors": [],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeInternal",
+      "ctors": [],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeInternal+EventPipeProviderConfigurationNative",
+      "ctors": [],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeEventDispatcher",
+      "ctors": [
+        {
+          "parameters": [],
+          "isPublic": false
+        }
+      ],
+      "attempts": [
+        {
+          "ctor": "parameterless",
+          "success": true
+        }
+      ],
+      "events": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeEventDispatcher+EventListenerSubscription",
+      "ctors": [
+        {
+          "parameters": [
+            "System.Diagnostics.Tracing.EventKeywords",
+            "System.Diagnostics.Tracing.EventLevel"
+          ],
+          "isPublic": false
+        }
+      ],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeEventDispatcher+<>c__DisplayClass15_0",
+      "ctors": [
+        {
+          "parameters": [],
+          "isPublic": true
+        }
+      ],
+      "attempts": [
+        {
+          "ctor": "parameterless",
+          "success": true
+        }
+      ],
+      "events": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeEventProvider",
+      "ctors": [
+        {
+          "parameters": [
+            "System.Diagnostics.Tracing.EventProvider"
+          ],
+          "isPublic": false
+        }
+      ],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipeMetadataGenerator",
+      "ctors": [
+        {
+          "parameters": [],
+          "isPublic": false
+        }
+      ],
+      "attempts": [
+        {
+          "ctor": "parameterless",
+          "success": true
+        }
+      ],
+      "events": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.EventPipePayloadDecoder",
+      "ctors": [],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.TraceLoggingDataCollector",
+      "ctors": [],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.TraceLoggingDataType",
+      "ctors": [],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.TraceLoggingEventHandleTable",
+      "ctors": [
+        {
+          "parameters": [],
+          "isPublic": false
+        }
+      ],
+      "attempts": [
+        {
+          "ctor": "parameterless",
+          "success": true
+        }
+      ],
+      "events": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.TraceLoggingEventTypes",
+      "ctors": [
+        {
+          "parameters": [
+            "System.String",
+            "System.Diagnostics.Tracing.EventTags",
+            "System.Type[]"
+          ],
+          "isPublic": false
+        },
+        {
+          "parameters": [
+            "System.String",
+            "System.Diagnostics.Tracing.EventTags",
+            "System.Diagnostics.Tracing.TraceLoggingTypeInfo[]"
+          ],
+          "isPublic": false
+        },
+        {
+          "parameters": [
+            "System.String",
+            "System.Diagnostics.Tracing.EventTags",
+            "System.Reflection.ParameterInfo[]"
+          ],
+          "isPublic": false
+        },
+        {
+          "parameters": [
+            "System.Diagnostics.Tracing.EventTags",
+            "System.String",
+            "System.Diagnostics.Tracing.TraceLoggingTypeInfo[]"
+          ],
+          "isPublic": false
+        }
+      ],
+      "attempts": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.TraceLoggingMetadataCollector",
+      "ctors": [
+        {
+          "parameters": [],
+          "isPublic": false
+        },
+        {
+          "parameters": [
+            "System.Diagnostics.Tracing.TraceLoggingMetadataCollector",
+            "System.Diagnostics.Tracing.FieldMetadata"
+          ],
+          "isPublic": false
+        }
+      ],
+      "attempts": [
+        {
+          "ctor": "parameterless",
+          "success": true
+        }
+      ],
+      "events": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.TraceLoggingMetadataCollector+Impl",
+      "ctors": [
+        {
+          "parameters": [],
+          "isPublic": true
+        }
+      ],
+      "attempts": [
+        {
+          "ctor": "parameterless",
+          "success": true
+        }
+      ],
+      "events": []
+    },
+    {
+      "assembly": "System.Private.CoreLib",
+      "type": "System.Diagnostics.Tracing.TraceLoggingTypeInfo",
+      "ctors": [
+        {
+          "parameters": [
+            "System.Type"
+          ],
+          "isPublic": false
+        },
+        {
+          "parameters": [
+            "System.Type",
+            "System.String",
+            "System.Diagnostics.Tracing.EventLevel",
+            "System.Diagnostics.Tracing.EventOpcode",
+            "System.Diagnostics.Tracing.EventKeywords",
+            "System.Diagnostics.Tracing.EventTags"
+          ],
+          "isPublic": false
+        }
+      ],
+      "attempts": []
+    },
+    {
+      "assembly": "Microsoft.Diagnostics.Tracing.TraceEvent",
+      "type": "Microsoft.Diagnostics.Tracing.SampleProfilerThreadTimeComputer",
+      "ctors": [
+        {
+          "parameters": [
+            "Microsoft.Diagnostics.Tracing.Etlx.TraceLog",
+            "Microsoft.Diagnostics.Symbols.SymbolReader"
+          ],
+          "isPublic": true
+        }
+      ],
+      "attempts": []
+    },
+    {
+      "assembly": "Microsoft.Diagnostics.Tracing.TraceEvent",
+      "type": "Microsoft.Diagnostics.Tracing.EventPipeEventSource",
+      "ctors": [
+        {
+          "parameters": [
+            "System.String"
+          ],
+          "isPublic": true
+        },
+        {
+          "parameters": [
+            "System.IO.Stream"
+          ],
+          "isPublic": true
+        },
+        {
+          "parameters": [
+            "FastSerialization.PinnedStreamReader",
+            "System.String",
+            "System.Boolean"
+          ],
+          "isPublic": false
+        }
+      ],
+      "attempts": [
+        {
+          "ctor": "string",
+          "success": true
+        }
+      ],
+      "events": [
+        {
+          "name": "UnhandledEvents",
+          "attached": false
+        },
+        {
+          "name": "AllEvents",
+          "attached": true
+        },
+        {
+          "name": "UnhandledEvent",
+          "attached": false
+        },
+        {
+          "name": "EveryEvent",
+          "attached": false
+        },
+        {
+          "name": "Completed",
+          "attached": false
+        }
+      ],
+      "processed": true
+    }
+  ]
+}

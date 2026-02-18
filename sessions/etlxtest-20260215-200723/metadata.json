@@ -1,0 +1,12 @@
+{
+  "sessionId": "etlxtest-20260215-200723",
+  "pid": 71384,
+  "symPath": null,
+  "createdAt": "2026-02-15T19:07:29.5429902Z",
+  "artifacts": {
+    "trace": "sessions\\etlxtest-20260215-200723\\trace.nettrace",
+    "traceApiSurface": "sessions\\etlxtest-20260215-200723\\trace-reflection.json",
+    "hotspots": "sessions\\etlxtest-20260215-200723\\hotspots.json",
+    "folded": "sessions\\etlxtest-20260215-200723\\folded.txt"
+  }
+}

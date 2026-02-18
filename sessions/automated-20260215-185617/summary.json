@@ -1,0 +1,16 @@
+{
+  "tracePath": "sessions\\automated-20260215-185617\\trace.nettrace",
+  "sizeBytes": 13306,
+  "modifiedUtc": "2026-02-15T17:56:29.3951624Z",
+  "stub": false,
+  "note": "Attempting conversion and lightweight parsing.",
+  "hotspots": [
+    {
+      "method": "<parsing-not-available>",
+      "count": 0
+    }
+  ],
+  "folded": "sessions\\automated-20260215-185617\\folded.txt",
+  "parseStatus": "conversion-unavailable-reflection-fallback",
+  "diagnostics": []
+}

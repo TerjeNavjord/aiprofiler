@@ -1,0 +1,9 @@
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\bin\Debug\net10.0\TraceEventStubs.deps.json
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\bin\Debug\net10.0\TraceEventStubs.dll
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\bin\Debug\net10.0\TraceEventStubs.pdb
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\obj\Debug\net10.0\TraceEventStubs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\obj\Debug\net10.0\TraceEventStubs.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\obj\Debug\net10.0\TraceEventStubs.dll
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\obj\Debug\net10.0\refint\TraceEventStubs.dll
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\obj\Debug\net10.0\TraceEventStubs.pdb
+C:\Users\User\source\repos\aiprofiler\tests\TraceEventStubs\obj\Debug\net10.0\ref\TraceEventStubs.dll

@@ -1,0 +1,13 @@
+﻿PID	ProcessName
+15580	Raycast
+27164	csharp-ls
+1396	DevHub
+28580	ServiceHub.Host.Extensibility.x64
+75916	csharp-ls
+157064	VBCSCompiler
+86620	dotnet
+175028	crossgen2
+92668	dotnet
+172264	dotnet
+66368	dotai
+

@@ -1,0 +1,9 @@
+{
+  "sessionId": "20260215-135033-752198",
+  "pid": null,
+  "symPath": null,
+  "createdAt": "2026-02-15T13:50:33.908104Z",
+  "artifacts": {
+    "trace": "sessions\\20260215-135033-752198\\trace.nettrace"
+  }
+}

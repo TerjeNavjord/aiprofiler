@@ -1,0 +1,14 @@
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\bin\Debug\net10.0\TestApp.exe
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\bin\Debug\net10.0\TestApp.deps.json
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\bin\Debug\net10.0\TestApp.runtimeconfig.json
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\bin\Debug\net10.0\TestApp.dll
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\bin\Debug\net10.0\TestApp.pdb
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\TestApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\TestApp.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\TestApp.AssemblyInfo.cs
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\TestApp.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\TestApp.dll
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\refint\TestApp.dll
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\TestApp.pdb
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\TestApp.genruntimeconfig.cache
+C:\Users\User\source\repos\aiprofiler\samples\TestApp\obj\Debug\net10.0\ref\TestApp.dll

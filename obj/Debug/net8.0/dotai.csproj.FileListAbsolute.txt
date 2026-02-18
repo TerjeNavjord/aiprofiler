@@ -1,0 +1,17 @@
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.AssemblyInfo.cs
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\aiprofiler\bin\Debug\net8.0\dotai.exe
+C:\Users\User\source\repos\aiprofiler\bin\Debug\net8.0\dotai.deps.json
+C:\Users\User\source\repos\aiprofiler\bin\Debug\net8.0\dotai.runtimeconfig.json
+C:\Users\User\source\repos\aiprofiler\bin\Debug\net8.0\dotai.dll
+C:\Users\User\source\repos\aiprofiler\bin\Debug\net8.0\dotai.pdb
+C:\Users\User\source\repos\aiprofiler\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.csproj.Up2Date
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.dll
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\refint\dotai.dll
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.pdb
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\dotai.genruntimeconfig.cache
+C:\Users\User\source\repos\aiprofiler\obj\Debug\net8.0\ref\dotai.dll

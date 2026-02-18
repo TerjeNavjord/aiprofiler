@@ -1,0 +1,10 @@
+{
+  "tracePath": "sessions/rerun-20260215-164935/trace.nettrace",
+  "sizeBytes": 1930,
+  "modifiedUtc": "2026-02-15T15:50:41.2176014Z",
+  "stub": false,
+  "note": "Raw EventPipe stream present. Attempting ETLX conversion and lightweight TraceEvent parsing.",
+  "hotspots": [],
+  "folded": "sessions\\rerun-20260215-164935\\folded.txt",
+  "parseStatus": "parsed-sampledprofile-heuristic"
+}

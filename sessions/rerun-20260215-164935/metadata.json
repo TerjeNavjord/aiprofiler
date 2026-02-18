@@ -1,0 +1,12 @@
+{
+  "sessionId": "rerun-20260215-164935",
+  "pid": 54912,
+  "symPath": null,
+  "createdAt": "2026-02-15T16:49:35Z",
+  "artifacts": {
+    "trace": "sessions/rerun-20260215-164935/trace.nettrace",
+    "traceApiSurface": "sessions\\rerun-20260215-164935\\trace-reflection.json",
+    "hotspots": "sessions\\rerun-20260215-164935\\hotspots.json",
+    "folded": "sessions\\rerun-20260215-164935\\folded.txt"
+  }
+}

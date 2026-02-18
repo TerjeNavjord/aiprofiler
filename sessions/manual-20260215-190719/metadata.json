@@ -1,0 +1,12 @@
+{
+  "sessionId": "manual-20260215-190719",
+  "pid": 150272,
+  "symPath": null,
+  "createdAt": "2026-02-15T18:07:24.5950719Z",
+  "artifacts": {
+    "trace": "sessions\\manual-20260215-190719\\trace.nettrace",
+    "traceApiSurface": "sessions\\manual-20260215-190719\\trace-reflection.json",
+    "hotspots": "sessions\\manual-20260215-190719\\hotspots.json",
+    "folded": "sessions\\manual-20260215-190719\\folded.txt"
+  }
+}

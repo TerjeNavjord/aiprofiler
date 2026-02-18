@@ -1,0 +1,221 @@
+{
+  "tracePath": "sessions\\automated-20260216-012855\\trace.nettrace",
+  "sizeBytes": 35390,
+  "modifiedUtc": "2026-02-16T00:29:09.0402744Z",
+  "stub": false,
+  "note": "Attempting conversion and lightweight parsing.",
+  "hotspots": [
+    {
+      "method": "<Event MSec=     \"0,9186\" PID=\"23112\" PName=\"Process(23112)\" TID=\"126460\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"85\" TaskName=\"EventID(85)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"30\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=     \"0,9866\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"85\" TaskName=\"EventID(85)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"30\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=     \"0,9906\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=     \"1,0002\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=     \"1,0060\" PID=\"23112\" PName=\"Process(23112)\" TID=\"126460\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"281\" TaskName=\"EventID(281)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=     \"1,0084\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=     \"1,0153\" PID=\"23112\" PName=\"Process(23112)\" TID=\"126460\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=     \"1,0186\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=     \"1,0236\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"3\" TaskName=\"EventID(3)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"11,2692\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"11,2799\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"11,2879\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"11,3360\" PID=\"23112\" PName=\"Process(23112)\" TID=\"126460\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"11,3366\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"11,3400\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"3\" TaskName=\"EventID(3)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"25,6730\" PID=\"23112\" PName=\"Process(23112)\" TID=\"76492\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"85\" TaskName=\"EventID(85)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"30\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"26,7569\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"26,7642\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"26,7723\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"26,7738\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"26,7768\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"3\" TaskName=\"EventID(3)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"42,9858\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"42,9987\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"43,0078\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"43,0094\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"43,0140\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"3\" TaskName=\"EventID(3)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"58,8293\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"58,8367\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"58,8456\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"58,8477\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"58,8497\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"3\" TaskName=\"EventID(3)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"74,8076\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"74,8156\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"74,8259\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"74,8281\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"74,8304\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"3\" TaskName=\"EventID(3)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"90,3203\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"90,3286\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"90,3378\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"90,3395\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=    \"90,3427\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"3\" TaskName=\"EventID(3)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"105,9412\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"105,9535\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"105,9695\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"105,9712\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"105,9760\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"3\" TaskName=\"EventID(3)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"121,3033\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"9\" TaskName=\"EventID(9)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"10\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"121,4082\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"8\" TaskName=\"EventID(8)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"121,4179\" PID=\"23112\" PName=\"Process(23112)\" TID=\"27724\" IsClassic=\"False\" ProviderName=\"Provider(3c530d44-97ae-513a-1e6d-783e8f8e03a9)\" eventID=\"0\" TaskName=\"EventWriteString\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"0\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"4\">",
+      "count": 1
+    },
+    {
+      "method": "<Event MSec=   \"121,4204\" PID=\"23112\" PName=\"Process(23112)\" TID=\"192020\" IsClassic=\"False\" ProviderName=\"Provider(e13c0d23-ccbc-4e12-931b-d9cc2eee27e4)\" eventID=\"7\" TaskName=\"EventID(7)\" TaskNum=\"0\" OpcodeNum=\"0\" Version=\"1\" Level=\"4\" PointerSize=\"8\" EventDataLength=\"2\">",
+      "count": 1
+    }
+  ],
+  "folded": "sessions\\automated-20260216-012855\\folded.txt",
+  "parseStatus": "parsed-eventpipe-typed-reflection",
+  "diagnostics": [
+    "Found TraceLog candidate: System.Diagnostics.Tracing.TraceLoggingDataCollector in System.Private.CoreLib",
+    "Found TraceLog candidate: System.Diagnostics.Tracing.TraceLoggingDataType in System.Private.CoreLib",
+    "Found TraceLog candidate: System.Diagnostics.Tracing.TraceLoggingEventHandleTable in System.Private.CoreLib",
+    "Found TraceLog candidate: System.Diagnostics.Tracing.TraceLoggingEventTypes in System.Private.CoreLib",
+    "Found TraceLog candidate: System.Diagnostics.Tracing.TraceLoggingMetadataCollector in System.Private.CoreLib",
+    "Found TraceLog candidate: System.Diagnostics.Tracing.TraceLoggingMetadataCollector+Impl in System.Private.CoreLib",
+    "Found TraceLog candidate: System.Diagnostics.Tracing.TraceLoggingTypeInfo in System.Private.CoreLib",
+    "Loaded probe assembly: C:\\Users\\User\\source\\repos\\aiprofiler\\bin\\Debug\\net10.0\\Microsoft.Diagnostics.Tracing.TraceEvent.dll"
+  ]
+}

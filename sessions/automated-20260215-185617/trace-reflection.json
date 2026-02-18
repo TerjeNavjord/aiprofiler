@@ -1,0 +1,16 @@
+{
+  "candidateTypes": [
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventInstanceData",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeSessionInfo",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeProviderConfiguration",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeSerializationFormat",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeInternal",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeInternal+EventPipeProviderConfigurationNative",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventDispatcher",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventDispatcher+EventListenerSubscription",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventDispatcher+<>c__DisplayClass15_0",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeEventProvider",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipeMetadataGenerator",
+    "System.Private.CoreLib:System.Diagnostics.Tracing.EventPipePayloadDecoder"
+  ]
+}

@@ -1,0 +1,8 @@
+﻿PID	ProcessName
+15580	Raycast
+27164	csharp-ls
+75916	csharp-ls
+74528	dotnet
+59560	dotnet
+114976	dotai
+
